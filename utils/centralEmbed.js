@@ -69,7 +69,7 @@ class CentralEmbedHandler {
                 )
                 .setImage('https://i.ibb.co/DDSdKy31/ezgif-8aec7517f2146d.gif')
                 .setFooter({ 
-                    text: 'Witchers Music Bot • Developed By revolutio!',
+                    text: 'Witchers Music Bot • Developed By revolution!',
                     iconURL: this.client.user.displayAvatarURL()
                 })
                 .setTimestamp();
@@ -257,7 +257,7 @@ class CentralEmbedHandler {
                 )
                 .setImage('https://i.ibb.co/DDSdKy31/ezgif-8aec7517f2146d.gif')
                 .setFooter({ 
-                    text: 'Ultimate Music Bot • Developed By GlaceYT!',
+                    text: 'Witchers Music Bot • Developed By revolution!',
                     iconURL: this.client.user.displayAvatarURL()
                 })
                 .setTimestamp();
@@ -354,4 +354,5 @@ class CentralEmbedHandler {
 }
 
 module.exports = CentralEmbedHandler;
+
 
