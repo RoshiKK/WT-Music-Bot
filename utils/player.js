@@ -197,34 +197,24 @@ class PlayerHandler {
         });
 
         this.client.riffy.on('queueEnd', async (player) => {
-            try {
-                console.log(`🎵 Queue ended in ${player.guildId}`);
-        
-                await this.centralEmbed.updateCentralEmbed(player.guildId, null);
-        
-                const serverConfig = await require('../models/Server').findById(player.guildId);
-        
-                if (serverConfig?.settings?.autoplay) {
-                    player.isAutoplay = true;
-                }
-        
-                if (player.isAutoplay) {
-                    player.autoplay(player);
-                } else {
-                    if (this.client.statusManager) {
-                        await this.client.statusManager.onPlayerDisconnect(player.guildId);
-                    }
-                    player.destroy();
-                }
-            } catch (error) {
-                console.error('Queue end error:', error.message);
-                try {
-                    player.destroy();
-                } catch (destroyError) {
-                    console.error('Player destroy error:', destroyError.message);
-                }
-            }
-        });
+    try {
+        console.log(`🎵 Queue ended in ${player.guildId}`);
+
+        // Update central embed to idle
+        await this.centralEmbed.updateCentralEmbed(player.guildId, null);
+
+        // Update status (idle)
+        if (this.client.statusManager) {
+            await this.client.statusManager.onTrackEnd(player.guildId);
+        }
+
+        // 🚫 DO NOT destroy player
+        // Bot will stay in VC and wait for new songs
+
+    } catch (error) {
+        console.error('Queue end error:', error.message);
+    }
+});
 
         this.client.riffy.on('playerCreate', async (player) => {
             try {
@@ -259,3 +249,4 @@ class PlayerHandler {
 }
 
 module.exports = PlayerHandler;
+
